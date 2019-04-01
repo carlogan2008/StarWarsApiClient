@@ -7,7 +7,6 @@ namespace StarWarsAPIClient.DataBase.Planet
 {
     public class PlanetRepository
     {
-        
         public static PlanetModel GetById(int planetId){
             var client = new StarWarsClient();
             var result = StarWarsClient.GetByEndPoint($"planets/{planetId}");
@@ -27,7 +26,6 @@ namespace StarWarsAPIClient.DataBase.Planet
                 planetas.AddRange(GetPlanetsPage(result));
                 nextPageUrl = GetPaginationUrl(result);
             } while (!String.IsNullOrEmpty(nextPageUrl));
-
             return planetas;
         }
 
