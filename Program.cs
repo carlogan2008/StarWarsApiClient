@@ -6,6 +6,7 @@ using RestSharp;
 using StarWarsApiClient.DataBase.especies;
 using StarWarsAPIClient.Client;
 using StarWarsAPIClient.DataBase;
+using StarWarsAPIClient.DataBase.People;
 using StarWarsAPIClient.DataBase.Planet;
 using Google.Apis.Services;
 using Google.Apis.Customsearch.v1;
@@ -23,8 +24,8 @@ namespace StarWarsAPIClient
     {
         public static void Main(string[] args)
         {
-            string apiKey = "AIzaSyAWAula64K4zBqDcW9ingqaG5AcaAragRE";
-            string cx = "011959002115920615196:58wtj1x2rg4";
+            string apiKey = "";
+            string cx = "";
             string query = "star wars";
 
             CustomsearchService svc = new CustomsearchService();
