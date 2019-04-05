@@ -7,30 +7,41 @@ using StarWarsApiClient.DataBase.especies;
 using StarWarsAPIClient.Client;
 using StarWarsAPIClient.DataBase;
 using StarWarsAPIClient.DataBase.Planet;
-
+using Google.Apis.Services;
+using Google.Apis.Customsearch.v1;
+using System.Text;
+using Google.Apis.Customsearch.v1.Data;
+using Google.Apis;
+using Google.Apis.Json;
+using static Google.Apis.Customsearch.v1.CseResource;
+using static Google.Apis.Customsearch.v1.CseResource.SiterestrictResource.ListRequest;
+using static Google.Apis.Customsearch.v1.CseResource.ListRequest;
 
 namespace StarWarsAPIClient
 {
     class Program
     {
-
-       
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-       
-       
-            var planetas = PlanetRepository.GetAll();
-            foreach(var planeta in planetas)
-                {
-                System.Console.WriteLine(planeta.Name);
-                }
+            string apiKey = "AIzaSyAWAula64K4zBqDcW9ingqaG5AcaAragRE";
+            string cx = "011959002115920615196:58wtj1x2rg4";
+            string query = "star wars";
 
-            var Especies = EspeciesRepository.GetAll();
-            foreach(var spc in Especies)
-                {
-                 System.Console.WriteLine(spc.Name + " - " + spc.Planetanatal);
-                }
+            CustomsearchService svc = new CustomsearchService();
             
+            ListRequest listRequest = svc.Cse.List(query);
+            listRequest.Key = apiKey;
+            listRequest.Cx = cx;
+            listRequest.SearchType = Google.Apis.Customsearch.v1.CseResource.ListRequest.SearchTypeEnum.Image;
+            listRequest.Num = 3;
+            Search search = listRequest.Execute();
+
+            foreach (Result result in search.Items)
+            {
+                Console.WriteLine("Titulo: \n\t{0}", result.Title);
+                Console.WriteLine("Link da Imagem: \n\t{0}", result.Link);
+            }
+
         }
     }
 }
