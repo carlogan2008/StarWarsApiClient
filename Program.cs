@@ -17,6 +17,9 @@ using Google.Apis.Json;
 using static Google.Apis.Customsearch.v1.CseResource;
 using static Google.Apis.Customsearch.v1.CseResource.SiterestrictResource.ListRequest;
 using static Google.Apis.Customsearch.v1.CseResource.ListRequest;
+using StarWarsAPIClient.Helper;
+using System.Net;
+using System.Linq;
 
 namespace StarWarsAPIClient
 {
@@ -24,25 +27,17 @@ namespace StarWarsAPIClient
     {
         public static void Main(string[] args)
         {
-            string apiKey = "";
-            string cx = "";
-            string query = "star wars";
-
-            CustomsearchService svc = new CustomsearchService();
-            
-            ListRequest listRequest = svc.Cse.List(query);
-            listRequest.Key = apiKey;
-            listRequest.Cx = cx;
-            listRequest.SearchType = Google.Apis.Customsearch.v1.CseResource.ListRequest.SearchTypeEnum.Image;
-            listRequest.Num = 3;
-            Search search = listRequest.Execute();
-
-            foreach (Result result in search.Items)
-            {
-                Console.WriteLine("Titulo: \n\t{0}", result.Title);
-                Console.WriteLine("Link da Imagem: \n\t{0}", result.Link);
+            System.Console.WriteLine("iniciando");
+            var GIClient = new GoogleImagesClient();
+            System.Console.WriteLine("Baixando imagens");
+            var images = GIClient.Search("Star Wars");
+            var client = new WebClient();
+            foreach(var image in images){
+                System.Console.WriteLine("\tEscrevendo imagem...");
+                System.Console.WriteLine($"\t{image.Title}.{image.Link.Split(".").Last()}");
+                var bytes = client.DownloadData(image.Link);
+                File.WriteAllBytes($"images/{image.Title}.{image.Link.Split(".").Last()}", bytes);
             }
-
         }
     }
 }

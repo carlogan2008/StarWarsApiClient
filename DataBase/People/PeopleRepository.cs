@@ -20,18 +20,18 @@ namespace StarWarsAPIClient.DataBase.People
             var client = new StarWarsClient();
             var result = StarWarsClient.GetByEndPoint("people/");
             var nextPageUrl = GetPaginationUrl(result);
-            pessoas.AddRange(GetpeoplesPage(result));
+            pessoas.AddRange(GetPeoplesPage(result));
             do
             {
                 result = StarWarsClient.GetByUrl(nextPageUrl);
-                pessoas.AddRange(GetpeoplesPage(result));
+                pessoas.AddRange(GetPeoplesPage(result));
                 nextPageUrl = GetPaginationUrl(result);
             } while (!String.IsNullOrEmpty(nextPageUrl));
 
             return pessoas;
         }
 
-        public static List<PeopleModel> GetpeoplesPage(string content){
+        public static List<PeopleModel> GetPeoplesPage(string content){
             var peoplesResult = new {
                 results = new List<PeopleModel>()
             };

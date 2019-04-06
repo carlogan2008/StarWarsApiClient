@@ -7,11 +7,11 @@ namespace StarWarsApiClient.DataBase.especies
 {
     public class EspeciesRepository
     {
-        public static EspeciesModel GetById(int speciesId){
+        public static EspeciesModel GetById(int specieId){
             var client = new StarWarsClient();
-            var result = StarWarsClient.GetByEndPoint($"species/{speciesId}");
-            var planeta = JsonConvert.DeserializeObject<EspeciesModel>(result);
-            return planeta;
+            var result = StarWarsClient.GetByEndPoint($"species/{specieId}");
+            var especie = JsonConvert.DeserializeObject<EspeciesModel>(result);
+            return especie;
         }
 
         public static List<EspeciesModel> GetAll(){
@@ -19,18 +19,18 @@ namespace StarWarsApiClient.DataBase.especies
             var client = new StarWarsClient();
             var result = StarWarsClient.GetByEndPoint("species/");
             var nextPageUrl = GetPaginationUrl(result);
-            species.AddRange(GetPlanetsPage(result));
+            species.AddRange(GetSpeciePage(result));
             do
             {
                 result = StarWarsClient.GetByUrl(nextPageUrl);
-                species.AddRange(GetPlanetsPage(result));
+                species.AddRange(GetSpeciePage(result));
                 nextPageUrl = GetPaginationUrl(result);
             } while (!String.IsNullOrEmpty(nextPageUrl));
 
             return species;
         }
 
-        public static List<EspeciesModel> GetPlanetsPage(string content){
+        public static List<EspeciesModel> GetSpeciePage(string content){
             var speciesResult = new {
                 results = new List<EspeciesModel>()
             };
