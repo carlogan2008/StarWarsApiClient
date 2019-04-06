@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using StarWarsAPIClient.Client;
+using StarWarsAPIClient.DataBase;
 
-namespace StarWarsAPIClient.DataBase.People
+namespace StarWarsAPIClient.Client.People
 {
-    public class PeopleRepository
+    public class PeopleClient
     {
         
         public static PeopleModel GetById(int peopleId){

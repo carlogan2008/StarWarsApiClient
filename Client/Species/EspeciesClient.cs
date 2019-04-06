@@ -1,21 +1,22 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using StarWarsApiClient.DataBase;
 using StarWarsAPIClient.Client;
 
-namespace StarWarsApiClient.DataBase.especies
+namespace StarWarsApiClient.Client.Species
 {
-    public class EspeciesRepository
+    public class SpeciesClient
     {
-        public static EspeciesModel GetById(int specieId){
+        public static SpeciesModel GetById(int specieId){
             var client = new StarWarsClient();
             var result = StarWarsClient.GetByEndPoint($"species/{specieId}");
-            var especie = JsonConvert.DeserializeObject<EspeciesModel>(result);
+            var especie = JsonConvert.DeserializeObject<SpeciesModel>(result);
             return especie;
         }
 
-        public static List<EspeciesModel> GetAll(){
-            var species = new List<EspeciesModel>();
+        public static List<SpeciesModel> GetAll(){
+            var species = new List<SpeciesModel>();
             var client = new StarWarsClient();
             var result = StarWarsClient.GetByEndPoint("species/");
             var nextPageUrl = GetPaginationUrl(result);
@@ -30,9 +31,9 @@ namespace StarWarsApiClient.DataBase.especies
             return species;
         }
 
-        public static List<EspeciesModel> GetSpeciePage(string content){
+        public static List<SpeciesModel> GetSpeciePage(string content){
             var speciesResult = new {
-                results = new List<EspeciesModel>()
+                results = new List<SpeciesModel>()
             };
             var species = JsonConvert.DeserializeAnonymousType(content, speciesResult);
             return species.results;

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace StarWarsApiClient.DataBase.especies
+namespace StarWarsApiClient.DataBase
 {
-    public class EspeciesModel
+    public class SpeciesModel
     {
         [JsonProperty("name")]
         public string Name { get; set; }

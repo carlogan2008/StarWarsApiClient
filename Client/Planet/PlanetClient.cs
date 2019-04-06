@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using StarWarsAPIClient.Client;
+using StarWarsAPIClient.DataBase;
 
-namespace StarWarsAPIClient.DataBase.Planet
+namespace StarWarsAPIClient.Client.Planet
 {
-    public class PlanetRepository
+    public class PlanetClient
     {
         public static PlanetModel GetById(int planetId){
             var client = new StarWarsClient();
